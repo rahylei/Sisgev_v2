@@ -49,6 +49,32 @@
                 @endif
             @endforeach
         @endif
+
+        @if($self == "almacen")
+
+            @foreach($item as $object)
+                @if($i==0)<input type="hidden" name="id" value="{{$object}}">@endif
+                @if($i>0 && $i<4)
+                <x-modal-row type="{{$types[$i]}}" label="{{$labels[$i]}}" name="{{$names[$i]}}" id="{{$ids[$i]}}" placeholder="{{$object}}"/>
+                @endif
+                <div class="grid grid-cols-2">
+                    <div class="basis-1/2">
+                        @if($i>3 && $i<8)
+                        <x-modal-row type="{{$types[$i]}}" label="Min_{{$labels[$i]}}" name="min_{{$names[$i]}}" id="min_{{$ids[$i]}}" placeholder="{{$object}}"/>
+                        @endif        
+                    </div>
+                    <div class="basis-1/2">
+                        @if($i>3 && $i<8)
+                        <x-modal-row type="{{$types[$i]}}" label="Max_{{$labels[$i]}}" name="max_{{$names[$i]}}" id="max_{{$ids[$i]}}" placeholder="{{$object}}"/>
+                        @endif
+                    </div>
+                </div>
+                
+                @if($i++ == 8)
+                    @break
+                @endif
+            @endforeach
+        @endif
         
         </div>
 

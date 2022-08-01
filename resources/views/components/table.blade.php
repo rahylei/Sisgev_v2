@@ -36,7 +36,10 @@
                     <th scope="col" class="py-3 px-6">
                         Peso
                     </th>
-                    
+                    <th scope="col" class="py-3 px-6">
+                        Status
+                    </th>
+
                 @endif
 
                 @if($state == "lineas")
@@ -52,8 +55,34 @@
                     <th scope="col" class="py-3 px-6">
                         Encargado
                     </th>
-                @endif
+                @endif        
 
+                @if($state == "almacen")
+                    <th scope="col" class="py-3 px-6">
+                        ID
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Codigo pieza
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Piezas
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Scrap
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Alto
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Largo
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        ancho
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Peso
+                    </th>
+                @endif
 
                 <th scope="col" class="py-3 px-6">
                     <span class="sr-only">Edit</span>

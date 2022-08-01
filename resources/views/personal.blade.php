@@ -30,7 +30,19 @@
                             <th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                 {{$item->name}}
                             </th>
-                            <td class="py-4 px-6">{{$item->password}}</td>
+                            <td class="py-4 px-6">
+                                @if($item->hasRole('administrador'))
+                                    Administrador                                
+                                @endif
+                                @if($item->hasRole('encargado'))
+                                    Encargado                                
+                                @endif
+                                @if($item->hasRole('operador'))
+                                    Operador                        
+                                @endif
+
+                                {{--$item->hasRole('administrador')--}}
+                            </td>
                             <td>
                                 @php
                                     $labels = array("ID","Nombre", "Correo", "Password");

@@ -3,7 +3,9 @@
 namespace App\Charts;
 
 use ArielMejiaDev\LarapexCharts\LarapexChart;
-use App\Models\Piezas;
+use App\Models\AlmacenPieza;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Arr;
 
 class PiezasBarChart
 {
@@ -15,12 +17,55 @@ class PiezasBarChart
     }
 
     public function build(): \ArielMejiaDev\LarapexCharts\BarChart
-    {
+    {        
+
+        $col1 = "Piezas Ok";
+        $col2 = "Scrap";
+
         return $this->chart->barChart()
-            ->setTitle('San Francisco vs Boston.')
-            ->setSubtitle('Wins during season 2021.')
-            ->addData('San Francisco', [6, 9, 3, 4, 10, 8])
-            ->addData('Boston', [7, 3, 8, 2, 6, 4])
-            ->setXAxis(['January', 'February', 'March', 'April', 'May', 'June']);
+            ->setTitle('Piezas')
+            ->setSubtitle('Almacen')
+            ->addData($col1, $this->getColPiezas())
+            ->addData($col2, $this->getColScrap())
+            ->setXAxis($this->getColCodigo());
+    }
+
+    public function getColPiezas(){        
+        $list = DB::table('almacen_piezas')->get();
+        foreach($list as $item){            
+            $piezas[] = $this->getPiezas($item->id);
+        }
+        return $piezas;
+    }
+
+    public function getColScrap(){        
+        $list = DB::table('almacen_piezas')->get();
+        foreach($list as $item){            
+            $scrap[] = $this->getScrap($item->id);
+        }
+        return $scrap;
+    }
+
+    public function getColCodigo(){        
+        $list = DB::table('almacen_piezas')->get();
+        foreach($list as $item){            
+            $codigo[] = $this->getCodigo($item->id);
+        }
+        return $codigo;
+    }
+
+    public function getCodigo($id){
+        $piezasOk = DB::table('almacen_piezas')->where('id', $id)->value('codigo_pieza');
+        return $piezasOk;      
+    }
+
+    public function getPiezas($id){        
+        $piezasOk = DB::table('almacen_piezas')->where('id', $id)->value('piezas_ok');
+        return $piezasOk;      
+    }
+
+    public function getScrap($id){        
+        $piezasOk = DB::table('almacen_piezas')->where('id', $id)->value('scrap');
+        return $piezasOk;      
     }
 }

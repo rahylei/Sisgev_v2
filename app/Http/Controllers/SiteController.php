@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use ArielMejiaDev\LarapexCharts\LarapexChart;
@@ -11,6 +12,7 @@ use App\Charts\LineasChart;
 use App\Models\User;
 use App\Models\Pieza;
 use App\Models\Linea;
+use App\Models\AlmacenPieza;
 use App\Actions\Jetstream\DeleteUser;
 use Carbon\Carbon;
 
@@ -36,12 +38,15 @@ class SiteController extends Controller
         return view('piezas');
     }
 
+    function almacen(){
+        return view('almacen');
+    }
 
     function altaUsuario(Request $request){
 
         $newuser = new User();
         $newuser->name = $request->name;
-        //$newuser->role = $request->role;
+        $newuser->assignRole($request->puesto);
         $newuser->email = $request->email;
         $newuser->password = Hash::make($request->password);
         $newuser->timestamps = Carbon::now();
@@ -106,19 +111,27 @@ class SiteController extends Controller
     }
 
      function altaLinea(Request $request){
-
+        
+        $id = DB::table('piezas')->where('codigo', $request->pieza)->value('id');
+        $pieza = Pieza::find($id);
         $newLinea = new Linea();
         $newLinea->codigo = $request->codigo;        
         $newLinea->pieza = $request->pieza;
         $newLinea->encargado = $request->encargado;
-        $newLinea->timestamps = Carbon::now();
+        $newLinea->status = true;
+        $newLinea->timestamps = Carbon::now();        
         $newLinea->save();
-
+        $pieza->check = true;
+        $pieza->save();
         return redirect('lineas');
     }
 
         function rmLinea($id){  
         $linea = Linea::find($id);
+        $id = DB::table('piezas')->where('codigo', $linea->pieza)->value('id');
+        $pieza = Pieza::find($id);
+        $pieza->check = false;
+        $pieza->save();
         $linea->delete();
         //return "se ha eliminado a ".$user->name;
         return redirect('lineas');//"Que pedo se ha eliminado a ".$user->name."!!!";
@@ -134,5 +147,52 @@ class SiteController extends Controller
         $Linea->save();
 
         return redirect('lineas');
+    }
+
+    function altaAlmacen(Request $request){
+
+        $newpieza = new AlmacenPieza();
+        $newpieza->codigo_pieza = $request->codigo_pieza;
+        $newpieza->piezas_ok = $request->piezas_ok;
+        $newpieza->scrap = $request->scrap;
+        $newpieza->min_alto = $request->min_alto;
+        $newpieza->min_largo = $request->min_largo;
+        $newpieza->min_ancho = $request->min_ancho;
+        $newpieza->min_peso = $request->min_peso;
+        $newpieza->max_alto = $request->max_alto;
+        $newpieza->max_largo = $request->max_largo;
+        $newpieza->max_ancho = $request->max_ancho;
+        $newpieza->max_peso = $request->max_peso;        
+        $newpieza->timestamps = Carbon::now();
+        $newpieza->save();
+
+        return redirect('almacen');
+    }
+
+       function rmAlmacen($id){  
+        $pieza = AlmacenPieza::find($id);
+        $pieza->delete();
+        //return "se ha eliminado a ".$user->name;
+        return redirect('almacen');//"Que pedo se ha eliminado a ".$user->name."!!!";
+    }
+
+    function upAlmacen(Request $request){
+
+        $newpieza = AlmacenPieza::find($request->id);
+        $newpieza->codigo_pieza = $request->codigo_pieza;
+        $newpieza->piezas_ok = $request->piezas_ok;
+        $newpieza->scrap = $request->scrap;
+        $newpieza->min_alto = $request->min_alto;
+        $newpieza->min_largo = $request->min_largo;
+        $newpieza->min_ancho = $request->min_ancho;
+        $newpieza->min_peso = $request->min_peso;
+        $newpieza->max_alto = $request->max_alto;
+        $newpieza->max_largo = $request->max_largo;
+        $newpieza->max_ancho = $request->max_ancho;
+        $newpieza->max_peso = $request->max_peso;        
+        //$newpieza->timestamps = Carbon::now();
+        $newpieza->save();
+
+        return redirect('almacen');
     }
 }
