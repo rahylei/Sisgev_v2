@@ -20,12 +20,13 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-        \App\Models\Pieza::factory(30)->create();
+        \App\Models\Pieza::factory(10)->create();
 
         $this->call([
             DefaultUsers::class,
             PermissionsSeeder::class,
             LineaSeeder::class,
+            AlmacenPiezaSeeder::class,
         ]);
 
     }

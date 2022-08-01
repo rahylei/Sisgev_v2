@@ -33,14 +33,16 @@
 
             <!-- Page Content -->
             <main>
-                {{ $slot }}
+                {{ $main }}
             </main>
         </div>
 
         @stack('modals')
 
-        @livewireScripts
+        @livewireScripts        
         <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+        <script defer src="https://unpkg.com/alpinejs@3.10.3/dist/cdn.min.js"></script>
+        @livewire('livewire-ui-modal')        
         {{--<script type="text/javascript" src="{{asset('js/flowbite.js')}}"></script>--}}
     </body>
 </html>

@@ -4,6 +4,7 @@ namespace App\Charts;
 
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class Users
 {
@@ -24,10 +25,23 @@ class Users
             ->setTitle('Users')
             ->setSubtitle('Divide for roles')
             ->addData([
-                count(User::all()), 
-                count(User::all()), 
-                count(User::all())])
+                $this->getUsers('administrador'), 
+                $this->getUsers('operador'), 
+                $this->getUsers('encargado')])
             ->setLabels(['Administrador', 'Operador', 'Encargado']);
     }
+
+    public function getUsers($role){
+        $list = User::all();//DB::table('users')->get();
+        $cont=0;
+
+        foreach($list as $item){            
+            if($item->hasRole($role)){
+                $cont++;
+            }
+        }
+        return $cont;
+    }
+
     
 }

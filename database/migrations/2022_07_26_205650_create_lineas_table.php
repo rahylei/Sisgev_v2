@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('codigo');   
             $table->string('pieza');         
             $table->string('encargado');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

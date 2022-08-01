@@ -19,6 +19,9 @@
 
                 @if($state == "piezas")
                     <th scope="col" class="py-3 px-6">
+                        ID
+                    </th>
+                    <th scope="col" class="py-3 px-6">
                         Codigo
                     </th>
                     <th scope="col" class="py-3 px-6">
@@ -34,11 +37,15 @@
                         Peso
                     </th>
                     <th scope="col" class="py-3 px-6">
-                        Check
+                        Status
                     </th>
+
                 @endif
 
-                @if($state == "linea")
+                @if($state == "lineas")
+                    <th scope="col" class="py-3 px-6">
+                        ID
+                    </th>
                     <th scope="col" class="py-3 px-6">
                         Codigo
                     </th>
@@ -48,8 +55,34 @@
                     <th scope="col" class="py-3 px-6">
                         Encargado
                     </th>
-                @endif
+                @endif        
 
+                @if($state == "almacen")
+                    <th scope="col" class="py-3 px-6">
+                        ID
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Codigo pieza
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Piezas
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Scrap
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Alto
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Largo
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        ancho
+                    </th>
+                    <th scope="col" class="py-3 px-6">
+                        Peso
+                    </th>
+                @endif
 
                 <th scope="col" class="py-3 px-6">
                     <span class="sr-only">Edit</span>
@@ -57,7 +90,8 @@
             </tr>
         </thead>
         <tbody>
-            
+            {{$tbody}}
+            {{--
             @foreach($list as $item)
                 @if($state == "personal")
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
@@ -70,10 +104,10 @@
                             <div class="flex flex-row">
                             <button type="button" class="text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Editar</button>
                             
-                            
-                            {{--<a href="{{route('rmUsuario',$item->id)}}">
+                        
+                            <a href="{{route('rmUsuario',$item->id)}}">
                                 <button type="button" class="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Eliminar</button>
-                            </a>--}}
+                            </a>
                             <x-modal-confirm estilos="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
                                 tipo="Eliminar"
                                 :ruta="['rmUsuario']"
@@ -124,7 +158,7 @@
                     </tr>
                 @endif
             @endforeach
-            
+            --}}
         </tbody>
     </table>
 </div>
