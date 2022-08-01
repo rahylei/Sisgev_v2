@@ -3,6 +3,7 @@
 namespace App\View\Components;
 
 use Illuminate\View\Component;
+use App\Models\User;
 
 class table extends Component
 {
@@ -14,9 +15,9 @@ class table extends Component
     public $list;
     public $state;
 
-    public function __construct($list, $state)
+    public function __construct(User $list, $state)
     {
-        $this->list = $list;
+        $this->list = $list->all();
         $this->state = $state;
     }
 

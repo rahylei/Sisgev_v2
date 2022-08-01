@@ -31,4 +31,11 @@ Route::middleware([
     Route::get('/piezas', [SiteController::class, 'piezas'])->name('piezas');
     Route::get('/rmUsuario/{id}', [SiteController::class, 'rmUsuario'])->name('rmUsuario');
     Route::post('/altaUsuario', [SiteController::class, 'altaUsuario'])->name('altaUsuario');
+    Route::post('/upUsuario', [SiteController::class, 'upUsuario'])->name('upUsuario');
+    Route::post('/altaPieza', [SiteController::class, 'altaPieza'])->name('altaPieza');
+    Route::get('/rmPieza/{id}', [SiteController::class, 'rmPieza'])->name('rmPieza');
+    Route::post('/upPieza', [SiteController::class, 'upPieza'])->name('upPieza');
+    Route::post('/altaLinea', [SiteController::class, 'altaLinea'])->name('altaLinea');
+    Route::get('/rmLinea/{id}', [SiteController::class, 'rmLinea'])->name('rmLinea');
+    Route::post('/upLinea', [SiteController::class, 'upLinea'])->name('upLinea');
 });
